@@ -1,7 +1,6 @@
 import App from "@/App";
-import Book from "@/pages/Books";
-import { Counter } from "@/pages/Counter";
-import User from "@/pages/User";
+import Books from "@/pages/Books";
+
 import { createBrowserRouter } from "react-router";
 
 
@@ -11,16 +10,8 @@ const router = createBrowserRouter([
     Component: App,
     children: [
         {
-            path: "user",
-            Component: User
-        },
-        {
-            path: "book",
-            Component: Book
-        },
-        {
-            path: "counter",
-            Component: Counter
+            path: "books",
+            Component: Books
         }
     ]
   },
