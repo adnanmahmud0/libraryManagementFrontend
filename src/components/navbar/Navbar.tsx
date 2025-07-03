@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Logo } from "./logo";
-import { NavMenu } from "./nav-menu";
-import { NavigationSheet } from "./navigation-sheet";
+import { NavMenu } from "./NavMenu";
+import { NavigationSheet } from "./NavigationSheet";
+import Logo from "./Logo";
 
-const Navbar04Page = () => {
+
+
+const Navbar = () => {
   return (
     <div className="min-h-screen bg-muted">
       <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 max-w-screen-xl mx-auto rounded-full">
@@ -33,4 +35,4 @@ const Navbar04Page = () => {
   );
 };
 
-export default Navbar04Page;
+export default Navbar;
