@@ -1,5 +1,6 @@
 import App from "@/App";
 import Book from "@/pages/Book";
+import { Counter } from "@/pages/Counter";
 import User from "@/pages/User";
 import {
   createBrowserRouter,
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         {
             path: "book",
             Component: Book
+        },
+        {
+            path: "counter",
+            Component: Counter
         }
     ]
   },
