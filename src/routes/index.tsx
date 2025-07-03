@@ -1,5 +1,5 @@
 import App from "@/App";
-import Book from "@/pages/Book";
+import Book from "@/pages/Books";
 import { Counter } from "@/pages/Counter";
 import User from "@/pages/User";
 import { createBrowserRouter } from "react-router";
