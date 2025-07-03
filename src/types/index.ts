@@ -1,4 +1,4 @@
-// Book Type
+// types.ts
 export interface IBook {
   _id: string;
   title: string;
@@ -8,6 +8,12 @@ export interface IBook {
   description: string;
   copies: number;
   available: boolean;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IBooksApiResponse {
+  success: boolean;
+  message: string;
+  data: IBook[]; // this is the actual books array
 }

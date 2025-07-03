@@ -1,4 +1,4 @@
-import type { IBook } from '@/types';
+import type {IBooksApiResponse } from '@/types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
@@ -9,14 +9,17 @@ export const bookApi = createApi({
     endpoints: (builder) => ({
 
         //getbook
-        getBooks: builder.query<IBook[], void>({
-            query: () => "books",
-            transformResponse: (response: {
-                success: boolean;
-                message: string;
-                data: IBook[];
-            }) => response.data,
-            providesTags: ["Books"],
+        getBooks: builder.query<IBooksApiResponse, { filter?: string; sortBy?: string; sort?: string; limit?: number; page?: number; }>({
+            query: ({ filter, sortBy = "createdAt", sort = "desc", limit = 5, page = 1 }) => {
+                const params = new URLSearchParams();
+                if (filter) params.append("filter", filter);
+                if (sortBy) params.append("sortBy", sortBy);
+                if (sort) params.append("sort", sort);
+                if (limit) params.append("limit", limit.toString());
+                if (page) params.append("page", page.toString());
+
+                return `/books?${params.toString()}`;
+            },
         }),
 
         //getbook by id

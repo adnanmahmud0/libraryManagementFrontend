@@ -7,11 +7,13 @@ import { Outlet } from "react-router"
 function App() {
   return (
     <>
-      <Navbar />
+      <div className="space-y-20">
+        <Navbar />
 
-      <Outlet />
+        <Outlet />
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   )
 }
