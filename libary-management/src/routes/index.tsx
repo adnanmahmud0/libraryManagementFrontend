@@ -2,9 +2,8 @@ import App from "@/App";
 import Book from "@/pages/Book";
 import { Counter } from "@/pages/Counter";
 import User from "@/pages/User";
-import {
-  createBrowserRouter,
-} from "react-router";
+import { createBrowserRouter } from "react-router";
+
 
 const router = createBrowserRouter([
   {
