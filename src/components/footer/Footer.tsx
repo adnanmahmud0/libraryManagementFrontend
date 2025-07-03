@@ -10,29 +10,17 @@ import { Link } from "react-router";
 
 const footerLinks = [
   {
-    title: "Overview",
+    title: "All Book",
     to: "#",
   },
   {
-    title: "Features",
+    title: "Add Book",
     to: "#",
   },
   {
-    title: "Pricing",
+    title: "Borrow Summary",
     to: "#",
-  },
-  {
-    title: "Careers",
-    to: "#",
-  },
-  {
-    title: "Help",
-    to: "#",
-  },
-  {
-    title: "Privacy",
-    to: "#",
-  },
+  }
 ];
 
 const Footer = () => {
