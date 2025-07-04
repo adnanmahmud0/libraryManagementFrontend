@@ -6,6 +6,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const genreOptions = [
+  "FICTION",
+  "NON_FICTION",
+  "SCIENCE",
+  "HISTORY",
+  "BIOGRAPHY",
+  "FANTASY",
+];
 
 const AddBookForm = () => {
   const navigate = useNavigate();
@@ -66,14 +76,25 @@ const AddBookForm = () => {
 
       <div className="grid gap-2">
         <Label htmlFor="genre">Genre</Label>
-        <Input
-          id="genre"
-          name="genre"
-          value={formData.genre}
-          onChange={handleChange}
-          placeholder="Genre (e.g., FANTASY)"
-          required
-        />
+        <div className="w-full">
+          <Select
+            value={formData.genre}
+            onValueChange={(value) =>
+              setFormData((prev) => ({ ...prev, genre: value }))
+            }
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select Genre" />
+            </SelectTrigger>
+            <SelectContent>
+              {genreOptions.map((genre) => (
+                <SelectItem key={genre} value={genre}>
+                  {genre}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="grid gap-2">
