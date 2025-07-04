@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
-    Table, TableBody, TableCaption, TableCell,
+    Table, TableBody, TableCell,
     TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
