@@ -44,3 +44,12 @@ export interface BookFilterProps {
   onSortChange: (value: string) => void;
   onLimitChange: (value: number) => void;
 }
+
+
+export interface IBorrowSummary {
+  book: {
+    title: string;
+    isbn: string;
+  };
+  totalQuantity: number;
+}
