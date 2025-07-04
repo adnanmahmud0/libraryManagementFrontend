@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { useGetBooksQuery, useDeleteBookMutation, useUpdateBookMutation } from "@/redux/services/bookApi";
 import type { IBook } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -49,9 +48,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useBorrowBookMutation } from "@/redux/services/borrowApi";
 
-// Initialize SweetAlert with React content support
-const MySwal = Swal;
 
 const Books = () => {
     const [filter, setFilter] = useState("");
@@ -63,6 +61,10 @@ const Books = () => {
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [dialogMessage, setDialogMessage] = useState("");
+    const [openBorrowDialog, setOpenBorrowDialog] = useState(false);
+    const [borrowFormData, setBorrowFormData] = useState({ quantity: 1, dueDate: "" });
+    const [borrowBookId, setBorrowBookId] = useState<string | null>(null);
+
 
     const { data: response, isLoading, isError, refetch } = useGetBooksQuery({
         filter: filter === "all" ? "" : filter,
@@ -135,11 +137,15 @@ const Books = () => {
 
     };
 
+    const [borrowBook, { isLoading: isBorrowing }] = useBorrowBookMutation();
 
 
     const handleBorrow = (book: IBook) => {
-        MySwal.fire(`Borrow book: ${book.title} (Implement your borrow logic here)`);
+        setBorrowBookId(book._id);
+        setBorrowFormData({ quantity: 1, dueDate: "" });
+        setOpenBorrowDialog(true);
     };
+
 
     return (
         <>
@@ -254,7 +260,10 @@ const Books = () => {
                                                     <DropdownMenuItem onClick={() => setBookToDelete(book)}>
                                                         Delete
                                                     </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => handleBorrow(book)}>
+                                                    <DropdownMenuItem
+                                                        onClick={() => handleBorrow(book)}
+                                                        disabled={!book.available}
+                                                    >
                                                         Borrow
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
@@ -329,6 +338,57 @@ const Books = () => {
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <Dialog open={openBorrowDialog} onOpenChange={setOpenBorrowDialog}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Borrow Book</DialogTitle>
+                        <DialogDescription>Enter quantity and due date for borrowing this book.</DialogDescription>
+                    </DialogHeader>
+
+                    <div className="space-y-4">
+                        <Input
+                            type="number"
+                            name="quantity"
+                            min="1"
+                            placeholder="Quantity"
+                            value={borrowFormData.quantity}
+                            onChange={(e) => setBorrowFormData({ ...borrowFormData, quantity: Number(e.target.value) })}
+                        />
+                        <Input
+                            type="date"
+                            name="dueDate"
+                            placeholder="Due Date"
+                            value={borrowFormData.dueDate}
+                            onChange={(e) => setBorrowFormData({ ...borrowFormData, dueDate: e.target.value })}
+                        />
+                        <Button
+                            disabled={isBorrowing}
+                            onClick={async () => {
+                                if (!borrowBookId) return;
+                                try {
+                                    await borrowBook({
+                                        book: borrowBookId,
+                                        quantity: borrowFormData.quantity,
+                                        dueDate: borrowFormData.dueDate,
+                                    }).unwrap();
+                                    setOpenBorrowDialog(false);
+                                    setDialogMessage("Book borrowed successfully!");
+                                    setShowSuccessDialog(true);
+                                    refetch(); 
+                                } catch (err) {
+                                    console.error("Borrow failed:", err);
+                                    setDialogMessage("Failed to borrow book.");
+                                    setShowErrorDialog(true);
+                                }
+                            }}
+                        >
+                            {isBorrowing ? "Borrowing..." : "Confirm Borrow"}
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
 
             {/* Delete Confirmation Dialog */}
             <AlertDialog open={!!bookToDelete} onOpenChange={() => setBookToDelete(null)}>

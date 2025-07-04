@@ -17,3 +17,19 @@ export interface IBooksApiResponse {
   message: string;
   data: IBook[]; // this is the actual books array
 }
+
+// 📦 Borrow Request Type
+export interface IBorrow {
+  book: string; // bookId
+  quantity: number;
+  dueDate: string; // ISO date string
+}
+
+// 📊 Borrow Summary Type (from aggregation)
+export interface IBorrowSummary {
+  book: {
+    title: string;
+    isbn: string;
+  };
+  totalQuantity: number;
+}
