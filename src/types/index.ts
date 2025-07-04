@@ -33,3 +33,14 @@ export interface IBorrowSummary {
   };
   totalQuantity: number;
 }
+
+export interface BookFilterProps {
+  filter: string;
+  sortBy: string;
+  sort: string;
+  limit: number;
+  onFilterChange: (value: string) => void;
+  onSortByChange: (value: string) => void;
+  onSortChange: (value: string) => void;
+  onLimitChange: (value: number) => void;
+}

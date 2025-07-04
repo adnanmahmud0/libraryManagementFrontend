@@ -7,7 +7,7 @@ import { useBorrowBookMutation } from "@/redux/services/borrowApi";
 import type { IBook } from "@/types";
 
 import { Button } from "@/components/ui/button";
-import BookFilters from "@/components/books/BookFilters";
+import BookFilters from "@/components/books/BookFilters/BookFilters";
 import BookTable from "@/components/books/BookTable";
 import EditBookDialog from "@/components/books/EditBookDialog";
 import BorrowBookDialog from "@/components/books/BorrowBookDialog";
