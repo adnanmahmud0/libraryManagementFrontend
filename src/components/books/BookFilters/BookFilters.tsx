@@ -11,7 +11,7 @@ import {
     sortByOptions,
     sortOrderOptions,
     limitOptions,
-} from "./filterOptions";
+} from "../../../constants/filterOptions";
 
 
 const BookFilters = ({
