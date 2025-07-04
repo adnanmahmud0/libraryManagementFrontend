@@ -1,4 +1,4 @@
-// File: components/BorrowBookDialog.tsx
+
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { IBook } from "@/types";
+import { useNavigate } from "react-router";
 
 interface Props {
   open: boolean;
@@ -21,6 +22,8 @@ interface Props {
 
 const BorrowBookDialog = ({ open, onOpenChange, book, onBorrow, isLoading }: Props) => {
   const [formData, setFormData] = useState({ quantity: 1, dueDate: "" });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (book) {
@@ -38,7 +41,12 @@ const BorrowBookDialog = ({ open, onOpenChange, book, onBorrow, isLoading }: Pro
   };
 
   const handleSubmit = async () => {
-    await onBorrow(formData);
+    try {
+      await onBorrow(formData);
+      navigate("/borrow-summary");
+    } catch (error) {
+      console.error("Borrow failed:", error);
+    }
   };
 
   return (
