@@ -13,6 +13,7 @@ import EditBookDialog from "@/components/books/EditBookDialog";
 import BorrowBookDialog from "@/components/books/BorrowBookDialog";
 import ConfirmDeleteDialog from "@/components/books/ConfirmDeleteDialog";
 import StatusDialog from "@/components/books/StatusDialog";
+import Title from "@/components/header/Title";
 
 const Books = () => {
     const [filter, setFilter] = useState("all");
@@ -95,8 +96,7 @@ const Books = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl text-center font-bold">All Books</h1>
-
+            <Title title={"All Books"}/>
             <BookFilters
                 filter={filter}
                 sortBy={sortBy}

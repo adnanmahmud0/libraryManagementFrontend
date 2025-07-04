@@ -1,5 +1,6 @@
 import AddBookForm from "@/components/addBook/AddBookForm";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Title from "@/components/header/Title";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 
 const AddBook = () => {
@@ -7,7 +8,7 @@ const AddBook = () => {
         <div className="flex justify-center mt-10 px-4">
             <Card className="w-full max-w-xl mt-20">
                 <CardHeader>
-                    <CardTitle>Add New Book</CardTitle>
+                    <Title title="Add Book" />
                 </CardHeader>
                 <CardContent>
                     <AddBookForm />
