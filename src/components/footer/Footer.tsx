@@ -31,7 +31,7 @@ const Footer = () => {
             <span className="text-muted-foreground">
               &copy; {new Date().getFullYear()}{" "}
               <Link to="/" target="_blank">
-                Shadcn UI Blocks
+                adnanmahmud99
               </Link>
               . All rights reserved.
             </span>

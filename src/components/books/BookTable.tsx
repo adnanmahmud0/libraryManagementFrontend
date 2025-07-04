@@ -16,7 +16,6 @@ type Props = {
 
 const BookTable = ({ books, onEdit, onDelete, onBorrow }: Props) => (
     <Table>
-        <TableCaption>A list of all books in the library</TableCaption>
         <TableHeader>
             <TableRow>
                 <TableHead>Title</TableHead>
