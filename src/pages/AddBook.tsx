@@ -1,4 +1,4 @@
-import AddBookForm from "@/components/addBookForm/AddBookForm";
+import AddBookForm from "@/components/addBook/AddBookForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 
