@@ -1,8 +1,8 @@
-// import { ModeToggle } from "./components/mode-toggle"
-
+import { Toaster } from "sonner"
 import Footer from "./components/footer/Footer"
 import Navbar from "./components/navbar/Navbar"
 import { Outlet } from "react-router"
+
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
 
         <Footer />
       </div>
+      <Toaster richColors position="top-right" closeButton />
+      
     </>
   )
 }
