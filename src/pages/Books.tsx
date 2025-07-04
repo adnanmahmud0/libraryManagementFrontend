@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useGetBooksQuery, useDeleteBookMutation, useUpdateBookMutation } from "@/redux/services/bookApi";
 import type { IBook } from "@/types";
@@ -141,8 +142,9 @@ const Books = () => {
 
 
     const handleBorrow = (book: IBook) => {
+        const today = new Date().toISOString().split("T")[0];
         setBorrowBookId(book._id);
-        setBorrowFormData({ quantity: 1, dueDate: "" });
+        setBorrowFormData({ quantity: 1, dueDate: today });
         setOpenBorrowDialog(true);
     };
 
@@ -366,25 +368,35 @@ const Books = () => {
                             disabled={isBorrowing}
                             onClick={async () => {
                                 if (!borrowBookId) return;
+
+                                const availableCopies = books.find(b => b._id === borrowBookId)?.copies || 0;
+                                if (borrowFormData.quantity > availableCopies) {
+                                    setDialogMessage("Not enough copies available.");
+                                    setShowErrorDialog(true);
+                                    return;
+                                }
+
                                 try {
                                     await borrowBook({
                                         book: borrowBookId,
                                         quantity: borrowFormData.quantity,
                                         dueDate: borrowFormData.dueDate,
                                     }).unwrap();
+
                                     setOpenBorrowDialog(false);
                                     setDialogMessage("Book borrowed successfully!");
                                     setShowSuccessDialog(true);
-                                    refetch(); 
-                                } catch (err) {
-                                    console.error("Borrow failed:", err);
-                                    setDialogMessage("Failed to borrow book.");
+                                    refetch(); // refresh book list
+                                } catch (err: any) {
+                                    console.error("Borrow failed:", err?.data || err);
+                                    setDialogMessage(err?.data?.message || "Failed to borrow book.");
                                     setShowErrorDialog(true);
                                 }
                             }}
                         >
                             {isBorrowing ? "Borrowing..." : "Confirm Borrow"}
                         </Button>
+
                     </div>
                 </DialogContent>
             </Dialog>
