@@ -16,7 +16,7 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   book: IBook | null;
-  onUpdate: (data: { title: string; author: string; genre: string; isbn: string; copies: number }) => Promise<void>;
+  onUpdate: (data: { title: string; description: string; author: string; genre: string; isbn: string; copies: number }) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -66,8 +66,8 @@ const EditBookDialog = ({ open, onOpenChange, book, onUpdate, isLoading }: Props
         <div className="space-y-4">
           <Label htmlFor="title">Title</Label>
           <Input name="title" value={formData.title} onChange={handleInputChange} placeholder="Title" />
-          <Label htmlFor="title">Description</Label>
-          <Input name="title" value={formData.description} onChange={handleInputChange} placeholder="Description" />
+          <Label htmlFor="description">Description</Label>
+          <Input name="description" value={formData.description} onChange={handleInputChange} placeholder="Description" />
           <Label htmlFor="author">Author</Label>
           <Input name="author" value={formData.author} onChange={handleInputChange} placeholder="Author" />
           <Label htmlFor="genre">Genre</Label>
