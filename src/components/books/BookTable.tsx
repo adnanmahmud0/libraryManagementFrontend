@@ -6,6 +6,7 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import type { IBook } from "@/types";
+import { Link } from "react-router";
 
 type Props = {
     books: IBook[];
@@ -24,6 +25,7 @@ const BookTable = ({ books, onEdit, onDelete, onBorrow }: Props) => (
                 <TableHead>ISBN</TableHead>
                 <TableHead>Copies</TableHead>
                 <TableHead>Available</TableHead>
+                <TableHead>Details</TableHead>
                 <TableHead>Actions</TableHead>
             </TableRow>
         </TableHeader>
@@ -41,6 +43,11 @@ const BookTable = ({ books, onEdit, onDelete, onBorrow }: Props) => (
                         ) : (
                             <span className="text-red-600 font-semibold">No</span>
                         )}
+                    </TableCell>
+                    <TableCell>
+                        <Link to={`/books/${book._id}`} className="text-blue-600 hover:underline font-medium">
+                            <Button>Details</Button>
+                        </Link>
                     </TableCell>
                     <TableCell>
                         <DropdownMenu>

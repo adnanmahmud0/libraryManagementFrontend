@@ -1,4 +1,4 @@
-import { Toaster } from "sonner"
+
 import Footer from "./components/footer/Footer"
 import Navbar from "./components/navbar/Navbar"
 import { Outlet } from "react-router"
@@ -13,9 +13,7 @@ function App() {
         <Outlet />
 
         <Footer />
-      </div>
-      <Toaster richColors position="top-right" closeButton />
-      
+      </div>      
     </>
   )
 }
