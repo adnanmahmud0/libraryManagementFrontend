@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { IBook } from "@/types";
+import { Label } from "../ui/label";
 
 interface Props {
   open: boolean;
@@ -22,6 +23,7 @@ interface Props {
 const EditBookDialog = ({ open, onOpenChange, book, onUpdate, isLoading }: Props) => {
   const [formData, setFormData] = useState({
     title: "",
+    description: "",
     author: "",
     genre: "",
     isbn: "",
@@ -32,6 +34,7 @@ const EditBookDialog = ({ open, onOpenChange, book, onUpdate, isLoading }: Props
     if (book) {
       setFormData({
         title: book.title,
+        description: book.description,
         author: book.author,
         genre: book.genre,
         isbn: book.isbn,
@@ -61,10 +64,17 @@ const EditBookDialog = ({ open, onOpenChange, book, onUpdate, isLoading }: Props
         </DialogHeader>
 
         <div className="space-y-4">
+          <Label htmlFor="title">Title</Label>
           <Input name="title" value={formData.title} onChange={handleInputChange} placeholder="Title" />
+          <Label htmlFor="title">Description</Label>
+          <Input name="title" value={formData.description} onChange={handleInputChange} placeholder="Description" />
+          <Label htmlFor="author">Author</Label>
           <Input name="author" value={formData.author} onChange={handleInputChange} placeholder="Author" />
+          <Label htmlFor="genre">Genre</Label>
           <Input name="genre" value={formData.genre} onChange={handleInputChange} placeholder="Genre" />
+          <Label htmlFor="isbn">ISBN</Label>
           <Input name="isbn" value={formData.isbn} onChange={handleInputChange} placeholder="ISBN" />
+          <Label htmlFor="copies">Copies</Label>
           <Input
             name="copies"
             type="number"
