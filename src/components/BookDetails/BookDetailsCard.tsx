@@ -16,7 +16,7 @@ const BookDetailsCard = ({ book }: Props) => {
         <Card className="border shadow-md mt-6">
             <CardHeader>
                 <CardTitle className="text-2xl">{book?.title}</CardTitle>
-                <CardDescription>Details about the book</CardDescription>
+                <CardDescription>{book?.description}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div>
