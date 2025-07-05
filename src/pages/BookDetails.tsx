@@ -3,7 +3,6 @@
 
 import Title from "@/components/header/Title";
 import { useGetBookByIdQuery } from "@/redux/services/bookApi";
-import { Loader2 } from "lucide-react";
 import { useParams } from "react-router";
 import {
     Card,
