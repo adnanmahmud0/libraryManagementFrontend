@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { useGetBorrowSummaryQuery } from "@/redux/services/borrowApi";
 import {
     Table,
@@ -22,9 +23,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useLocation } from "react-router";
 
 const BorrowSummaryTable = () => {
-    const { data, isLoading, isError } = useGetBorrowSummaryQuery();
+    const location = useLocation();
+    const { data, isLoading, isError, refetch } = useGetBorrowSummaryQuery();
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +44,12 @@ const BorrowSummaryTable = () => {
         setItemsPerPage(Number(value));
         setCurrentPage(1); // Reset to first page
     };
+
+    useEffect(() => {
+        if (location.state?.refetch) {
+            refetch();
+        }
+    }, [location.state]);
 
     if (isLoading) {
         return (

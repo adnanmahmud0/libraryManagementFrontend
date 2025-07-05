@@ -83,7 +83,7 @@ const AddBookForm = () => {
   const handleDialogClose = () => {
     setAlert((prev) => ({ ...prev, open: false }));
     if (alert.type === "success") {
-      navigate("/");
+      navigate("/", { state: { refetch: true } });
     }
   };
 

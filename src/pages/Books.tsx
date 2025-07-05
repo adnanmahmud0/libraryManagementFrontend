@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // File: pages/Books.tsx
@@ -5,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useGetBooksQuery, useDeleteBookMutation, useUpdateBookMutation } from "@/redux/services/bookApi";
 import { useBorrowBookMutation } from "@/redux/services/borrowApi";
 import type { IBook } from "@/types";
-
+import { useLocation } from "react-router";
 import { Button } from "@/components/ui/button";
 import BookFilters from "@/components/books/BookFilters/BookFilters";
 import BookTable from "@/components/books/BookTable";
@@ -28,6 +29,7 @@ const Books = () => {
     const [showSuccessDialog, setShowSuccessDialog] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [dialogMessage, setDialogMessage] = useState("");
+    const location = useLocation();
 
     const { data: response, isLoading, isError, refetch } = useGetBooksQuery({
         filter: filter === "all" ? "" : filter,
@@ -74,13 +76,14 @@ const Books = () => {
         }
     };
 
-    const handleBorrow = async (data: { quantity: number; dueDate: string }) => {
-        if (!borrowBookTarget) return;
+    const handleBorrow = async (data: { quantity: number; dueDate: string }): Promise<boolean> => {
+        if (!borrowBookTarget) return false;
+
         const availableCopies = borrowBookTarget.copies;
         if (data.quantity > availableCopies) {
             setDialogMessage("Not enough copies available.");
             setShowErrorDialog(true);
-            return;
+            return false;
         }
 
         try {
@@ -89,11 +92,19 @@ const Books = () => {
             setShowSuccessDialog(true);
             setBorrowBookTarget(null);
             refetch();
+            return true;
         } catch (err: any) {
             setDialogMessage(err?.data?.message || "Failed to borrow book.");
             setShowErrorDialog(true);
+            return false;
         }
     };
+
+    useEffect(() => {
+        if (location.state?.refetch) {
+            refetch();
+        }
+    }, [location.state]);
 
     return (
         <div className="container mx-auto p-4">

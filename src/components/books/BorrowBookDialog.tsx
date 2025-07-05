@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -16,7 +15,7 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   book: IBook | null;
-  onBorrow: (data: { quantity: number; dueDate: string }) => Promise<void>;
+  onBorrow: (data: { quantity: number; dueDate: string }) => Promise<boolean>; // ✅ Fixed return type
   isLoading: boolean;
 }
 
@@ -41,11 +40,9 @@ const BorrowBookDialog = ({ open, onOpenChange, book, onBorrow, isLoading }: Pro
   };
 
   const handleSubmit = async () => {
-    try {
-      await onBorrow(formData);
+    const success = await onBorrow(formData); // ✅ Now success is a boolean
+    if (success) {
       navigate("/borrow-summary");
-    } catch (error) {
-      console.error("Borrow failed:", error);
     }
   };
 
@@ -54,7 +51,9 @@ const BorrowBookDialog = ({ open, onOpenChange, book, onBorrow, isLoading }: Pro
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Borrow Book</DialogTitle>
-          <DialogDescription>Enter quantity and due date for borrowing this book.</DialogDescription>
+          <DialogDescription>
+            Enter quantity and due date for borrowing this book.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -83,4 +82,3 @@ const BorrowBookDialog = ({ open, onOpenChange, book, onBorrow, isLoading }: Pro
 };
 
 export default BorrowBookDialog;
-
