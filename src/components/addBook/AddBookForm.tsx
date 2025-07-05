@@ -5,6 +5,8 @@ import { useAddBookMutation } from "@/redux/services/bookApi";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
 import {
   Select,
   SelectContent,
@@ -62,12 +64,14 @@ const AddBookForm = () => {
     e.preventDefault();
     try {
       await addBook(formData).unwrap();
+      toast.success("Book added successfully!");
       setAlert({
         open: true,
         type: "success",
         message: "Book added successfully!",
       });
     } catch (error: any) {
+      toast.error(error?.data?.error || "Failed to add book.");
       setAlert({
         open: true,
         type: "error",

@@ -2,6 +2,7 @@
 import Footer from "./components/footer/Footer"
 import Navbar from "./components/navbar/Navbar"
 import { Outlet } from "react-router"
+import { Toaster } from "./components/ui/sonner"
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
         <Outlet />
 
         <Footer />
-      </div>      
+      </div>
+      <Toaster position="top-center" richColors />
     </>
   )
 }
