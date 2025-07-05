@@ -37,6 +37,7 @@ const AddBookForm = () => {
 
   const [formData, setFormData] = useState({
     title: "",
+    description: "",
     author: "",
     genre: "",
     isbn: "",
@@ -93,6 +94,18 @@ const AddBookForm = () => {
             value={formData.title}
             onChange={handleChange}
             placeholder="Book Title"
+            required
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="title">Description</Label>
+          <Input
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Book Description"
             required
           />
         </div>
