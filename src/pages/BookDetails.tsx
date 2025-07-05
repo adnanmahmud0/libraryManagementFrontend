@@ -12,6 +12,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton"
 
 const BookDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -20,8 +21,13 @@ const BookDetails = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-                <span className="ml-2 text-gray-700">Loading book details...</span>
+                <div className="flex flex-col space-y-3">
+                    <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
             </div>
         );
     }
